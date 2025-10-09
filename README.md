@@ -1,6 +1,6 @@
 # 🚀 FEM Project Go
 
-A modern **Go** project developed during the Frontend Masters course, following best practices and clean architecture.
+A modern Go project developed during the Frontend Masters course, following best practices and clean architecture.
 
 ## 📋 About the Project
 
@@ -12,27 +12,32 @@ This project is being developed as part of learning Go, implementing a robust an
 fem-project-go/
 ├── main.go              # Application entry point
 ├── go.mod              # Dependency management
+├── docker-compose.yml  # Database services configuration
 ├── internal/           # Internal application code
-│   ├── app/           # App configuration and initialization
-│   └── routes/        # HTTP routes definition
-└── README.md          # Project documentation
+│   ├── app/           # Application configuration and initialization
+│   ├── routes/        # HTTP routes definition
+│   ├── api/          # API handlers for workouts
+│   └── store/        # Data access layer (in development)
+├── database/          # PostgreSQL data volumes
+└── README.md         # Project documentation
 ```
-
-## ✨ Features
-
-- [x] Basic application structure
-- [x] Configured logging system
-- [ ] HTTP routes (in development)
-- [ ] Authentication middleware
-- [ ] Database
-- [ ] RESTful API
-- [ ] Unit tests
 
 ## 🛠️ Technologies Used
 
 - **Go** 1.25.0
-- **Modular Structure** with internal packages
-- **Native Go Logging**
+- **Chi Router** v5.2.3 - Lightweight HTTP router and URL matcher
+- **PostgreSQL** 12.4 - Database for data persistence
+- **Docker Compose** - Containerized database services
+- **Modular Architecture** with internal packages for clean code organization
+
+## 📡 API Endpoints
+
+The following endpoints are currently available:
+
+### Workouts
+- `GET /health` - Health check endpoint
+- `GET /workouts/{id}` - Retrieve a specific workout by ID
+- `POST /workouts` - Create a new workout
 
 ## 🚀 How to Run
 
@@ -54,22 +59,39 @@ cd fem-project-go
 go mod tidy
 ```
 
-3. Run the application:
+3. Start the database (optional, for development):
+```bash
+docker-compose up -d
+```
+
+4. Run the application:
 ```bash
 go run main.go
+```
+
+The API will be available at `http://localhost:8080`
+
+### Testing the API
+
+You can test the endpoints using curl:
+
+```bash
+# Health check
+curl http://localhost:8080/health
+
+# Get workout by ID
+curl http://localhost:8080/workouts/1
+
+# Create workout
+curl -X POST http://localhost:8080/workouts \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Morning Run","duration":30}'
 ```
 
 ## 📝 Development Status
 
 This project is in **active development**. New features and improvements will be added regularly.
 
-### Next Steps
-
-- Implement basic HTTP routes
-- Add logging middleware
-- Configure database
-- Implement API endpoints
-- Add automated tests
 
 ## 🤝 Contributing
 
