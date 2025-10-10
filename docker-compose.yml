@@ -1,28 +1,31 @@
-version: "3.8"
-
 services:
   db:
     container_name: "workoutDB"
     image: postgres:12.4-alpine
-    volumes:
-      - "./database/postgres-data:/var/lib/postgresql/data:rw"
     ports:
-      - "5432:5432"
+      - "5555:5432" # uses 5555 to avoid conflict with local Postgres
     environment:
       POSTGRES_DB: "postgres"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - ./database/postgres-data:/var/lib/postgresql/data
+    healthcheck: # ensures that the DB is ready before the app starts
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     restart: unless-stopped
 
   test_db:
     container_name: "workoutDB_test"
     image: postgres:12.4-alpine
-    volumes:
-      - "./database/postgres-test-data:/var/lib/postgresql/data:rw"
     ports:
-      - "5433:5432"
+      - "5556:5432"
     environment:
       POSTGRES_DB: "postgres"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - ./database/postgres-test-data:/var/lib/postgresql/data
     restart: unless-stopped
