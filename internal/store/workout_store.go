@@ -31,6 +31,6 @@ func NewPostgresWorkoutStore(db *sql.DB) *PostgresWorkoutStore {
 }
 
 type WorkoutStore interface {
-	CreateWorkout(workout *Workout) (*Workout, error)
+	CreateWorkout(*Workout) (*Workout, error)
 	GetWorkoutByID(id int64) (*Workout, error)
 }
