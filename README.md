@@ -30,6 +30,22 @@ fem-project-go/
 - **Docker Compose** - Containerized database services
 - **Modular Architecture** with internal packages for clean code organization
 
+## 🔄 CI/CD Pipeline
+
+This project includes a comprehensive CI/CD pipeline that ensures code quality and consistency:
+
+### Pipeline Features
+- **Automated Testing**: Runs on every push and pull request to the main branch
+- **Go Version**: Uses Go 1.25.0 with dependency caching for faster builds
+- **Dependency Validation**: Ensures `go.mod` and `go.sum` are clean and up-to-date
+- **Environment Setup**: Validates the presence of required configuration files (`.env_example`)
+
+### Workflow Triggers
+- **Push** to `main` branch
+- **Pull Requests** targeting `main` branch
+
+The pipeline helps maintain code quality by automatically checking for common issues and ensuring all dependencies are properly managed.
+
 ## 📡 API Endpoints
 
 The following endpoints are currently available:
